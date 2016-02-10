@@ -18,6 +18,7 @@ Analysing logs/lm_intel.log
 
 By default it analyses logs/test.log in the current working directory but it supports these flags:
 
+| Flag | Function |
 |-----|--------------|
 | -h  | Prints flags |
 | -l logfile | Analyse logfile |
