@@ -1,0 +1,7 @@
+# THIS IS A TEST LOG FILE
+00:00:00 (TEST) OUT: "Testprod1" test@test
+00:00:30 (TEST) IN: "Testprod1" test@test
+00:01:00 (TEST) OUT: "Testprod1" test@test
+00:01:15 (TEST) OUT: "Testprod1" test@test
+00:01:30 (TEST) IN: "Testprod1" test@test
+00:02:30 (TEST) IN: "Testprod1" test@test
