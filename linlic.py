@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# This tool runs through a FlexLM license server log and prints the max usage
+# This tool runs through a FlexLM license server log and prints the usage
 # of every license type that's checked out from it.
 
 # Owain Kenway, February 2016

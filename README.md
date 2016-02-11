@@ -1,14 +1,14 @@
 # licenselogparse
 Tools for parsing FlexLM logs
 
-Currently there is a single tool in this repository, maxlic.py.
+Currently there is a single tool in this repository, linlic.py.
 
-##maxlic.py
+##linlic.py
 
-Maxlic.py analyses a FlexLM license manager log file and then prints out the maximum usage of each product it detects, e.g.:
+Linlic.py analyses a FlexLM license manager log file and then prints out the maximum usage of each product it detects, e.g.:
 
 ```none
-$ ./maxlic.py -l logs/lm_intel.log 
+$ ./linlic.py -l logs/lm_intel.log 
 Analysing logs/lm_intel.log
 
 Maximum usage of each product:
