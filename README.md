@@ -23,3 +23,5 @@ By default it analyses logs/test.log in the current working directory but it sup
 | -h  | Prints flags |
 | -l logfile | Analyse logfile |
 | -d | Enable debug output |
+| -u | Print out a list of users |
+| -U | ONLY print the list of users |

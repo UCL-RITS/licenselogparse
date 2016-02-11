@@ -17,6 +17,8 @@ if __name__ == '__main__':
    parser = argparse.ArgumentParser(description='Print max usage.')
    parser.add_argument('-l', metavar='logfile', type=str, help='Log file.')
    parser.add_argument('-d', action='store_true', help='Enable debug output.')
+   parser.add_argument('-u', action='store_true', help='Print users.')
+   parser.add_argument('-U', action='store_true', help='Only print users.')
 
    args = parser.parse_args()
 
@@ -36,6 +38,9 @@ if __name__ == '__main__':
 # thereof respectively.
    usage = {}
    maxusage = {}
+
+# users list
+   users = []
  
    with open(logfile, 'r') as l:
       for line in l:
@@ -51,6 +56,9 @@ if __name__ == '__main__':
 # Ansys's LM puts number of license in the sixth field.
                nlic = 1
                if len(fields) == 7: nlic = int(fields[5].strip('('))
+
+# If user hasn't been seen, add the to list of users
+               if not fields[4] in users: users.append(fields[4])
 
                product = fields[1] + '.' + fields[3].strip('"')
 # Check to see if we've seen this product before and if so subtract from
@@ -78,6 +86,9 @@ if __name__ == '__main__':
                nlic = 1
                if len(fields) == 7: nlic = int(fields[5].strip('('))
 
+# If user hasn't been seen, add the to list of users
+               if not fields[4] in users: users.append(fields[4])
+
                product = fields[1] + '.' + fields[3].strip('"')
 
 # If we've seen this product before, add to usage and set maxusage if this
@@ -98,5 +109,13 @@ if __name__ == '__main__':
    l.close()
 
 # Print the usage for all of the products we've discovered.
-   for record in maxusage:
-      print(record + ": " + str(maxusage[record])) 
+   if not args.U:
+      print('\nMaximum usage of each product:\n')
+      for record in maxusage:
+         print(record + ": " + str(maxusage[record])) 
+
+# Print out a user list if we want one.
+   if args.u or args.U:
+      print('\nUsers who have checked in/out a license:\n')
+      for user in users:
+         print(user)
