@@ -110,12 +110,12 @@ if __name__ == '__main__':
 
 # Print the usage for all of the products we've discovered.
    if not args.U:
-      print('\nMaximum usage of each product:\n')
+      print('\nMaximum usage of each product:')
       for record in maxusage:
          print(record + ": " + str(maxusage[record])) 
 
 # Print out a user list if we want one.
    if args.u or args.U:
-      print('\nUsers who have checked in/out a license:\n')
+      print('\nUsers who have checked in/out a license:')
       for user in users:
          print(user)

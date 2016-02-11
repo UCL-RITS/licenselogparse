@@ -10,6 +10,8 @@ Maxlic.py analyses a FlexLM license manager log file and then prints out the max
 ```none
 $ ./maxlic.py -l logs/lm_intel.log 
 Analysing logs/lm_intel.log
+
+Maximum usage of each product:
 (INTEL).CCompL: 22
 (INTEL).DbgL: 1
 (INTEL).FCompL: 7
