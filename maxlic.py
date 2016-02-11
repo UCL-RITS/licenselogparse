@@ -48,11 +48,15 @@ if __name__ == '__main__':
 
 # Detect checking in a license.
             if (fields[2] == LIC_IN):
+# Ansys's LM puts number of license in the sixth field.
+               nlic = 1
+               if len(fields) == 7: nlic = int(fields[5].strip('('))
+
                product = fields[1] + '.' + fields[3].strip('"')
 # Check to see if we've seen this product before and if so subtract 1 from
 # usage.
                if product in usage:
-                  usage[product] = usage[product] - 1
+                  usage[product] = usage[product] - nlic
                else:
 # Technically if we reach this point the world has gone very wrong.
 # But we could also have a partial license file.
@@ -70,20 +74,24 @@ if __name__ == '__main__':
 
 # Detect checking out a license.
             elif (fields[2] == LIC_OUT): 
+# Ansys's LM puts number of license in the sixth field.
+               nlic = 1
+               if len(fields) == 7: nlic = int(fields[5].strip('('))
+
                product = fields[1] + '.' + fields[3].strip('"')
 
 # If we've seen this product before, add 1 to usage and set maxusage if this
 # is the most we've seen so far.
                if product in usage:
-                  usage[product] = usage[product] + 1
+                  usage[product] = usage[product] + nlic
                   if maxusage[product] < usage[product]:
                      maxusage[product] = usage[product]
                      if args.d: print('New max for ' + product + ': ' + str(usage[product]))
                else:
 # If we've not seen this product before, create new entries in usage and 
 # maxusage.
-                  usage[product] = 1
-                  maxusage[product] = 1
+                  usage[product] = nlic
+                  maxusage[product] = nlic
                if args.d: print('out: ' + fields[1] + '.' + fields[3].strip('"') + ': ' + str(usage[product]))
 
 
