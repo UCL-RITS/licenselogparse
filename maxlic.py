@@ -53,7 +53,7 @@ if __name__ == '__main__':
                if len(fields) == 7: nlic = int(fields[5].strip('('))
 
                product = fields[1] + '.' + fields[3].strip('"')
-# Check to see if we've seen this product before and if so subtract 1 from
+# Check to see if we've seen this product before and if so subtract from
 # usage.
                if product in usage:
                   usage[product] = usage[product] - nlic
@@ -80,7 +80,7 @@ if __name__ == '__main__':
 
                product = fields[1] + '.' + fields[3].strip('"')
 
-# If we've seen this product before, add 1 to usage and set maxusage if this
+# If we've seen this product before, add to usage and set maxusage if this
 # is the most we've seen so far.
                if product in usage:
                   usage[product] = usage[product] + nlic
