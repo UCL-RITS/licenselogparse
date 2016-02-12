@@ -119,3 +119,4 @@ if __name__ == '__main__':
       print('\nUsers who have checked in/out a license:')
       for user in users:
          print(user)
+      print('\nTotal number of users: ' + str(len(users)))
