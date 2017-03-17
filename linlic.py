@@ -4,6 +4,8 @@
 # of every license type that's checked out from it.
 
 # Owain Kenway, February 2016
+#
+# Updated Feb 2017 to convert the list of users to users listed by product - BAA
 
 # Set the strings we detect as checking a license in/out.
 # Maybe should do this as arguments?
@@ -39,8 +41,8 @@ if __name__ == '__main__':
    usage = {}
    maxusage = {}
 
-# users list
-   users = []
+# users list by product dict
+   users = {}
  
    with open(logfile, 'r') as l:
       for line in l:
@@ -57,10 +59,18 @@ if __name__ == '__main__':
                nlic = 1
                if len(fields) == 7: nlic = int(fields[5].strip('('))
 
-# If user hasn't been seen, add the to list of users
-               if not fields[4] in users: users.append(fields[4])
-
                product = fields[1] + '.' + fields[3].strip('"')
+
+# If user hasn't been seen for this product, add the to list of users
+               if product in users:
+                  # print ('\nFound product ' + product + ' ' + fields[4]) 
+                  if not fields[4] in users[product]:
+                      users[product].append(fields[4])
+               else:
+                  # print ('\nFound product ' + product + ' ' + fields[4]) 
+                  users[product] = [fields[4]]
+                  
+
 # Check to see if we've seen this product before and if so subtract from
 # usage.
                if product in usage:
@@ -72,6 +82,7 @@ if __name__ == '__main__':
                   print('WARNING: Checking in license that hasn\'t been checked out. Setting usage for ' + product +  ' to zero.')
                   usage[product] = 0
                   maxusage[product] = 0
+                  
 
 # We can't have negative usage but with a partial log file we can.  
 # Reset to zero if we get this.
@@ -86,10 +97,12 @@ if __name__ == '__main__':
                nlic = 1
                if len(fields) == 7: nlic = int(fields[5].strip('('))
 
-# If user hasn't been seen, add the to list of users
-               if not fields[4] in users: users.append(fields[4])
-
                product = fields[1] + '.' + fields[3].strip('"')
+
+# If user hasn't been seen, add the to list of users
+               if product in users:
+                  if not fields[4] in users[product]: 
+                     users[product].append(fields[4])
 
 # If we've seen this product before, add to usage and set maxusage if this
 # is the most we've seen so far.
@@ -114,9 +127,12 @@ if __name__ == '__main__':
       for record in maxusage:
          print(record + ": " + str(maxusage[record])) 
 
-# Print out a user list if we want one.
+# Print out the user lists if we want them.
    if args.u or args.U:
-      print('\nUsers who have checked in/out a license:')
-      for user in users:
-         print(user)
-      print('\nTotal number of users: ' + str(len(users)))
+      print('\nUsers by product who have checked in/out a license:')
+      for product in users:
+         print ('\nProduct: ' + product + '\n')
+         users[product].sort(key=str.lower)
+         for user in users[product]:
+            print(user)
+         print('\nTotal number of users: ' + str(len(users[product])))
