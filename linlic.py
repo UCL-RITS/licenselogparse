@@ -43,9 +43,11 @@ if __name__ == '__main__':
 
 # users list by product dict
    users = {}
- 
+
+   line_num = 0
    with open(logfile, 'r') as l:
       for line in l:
+         line_num = line_num+1
          fields = line.split()
 
 # Drop any lines with not enough fields to check.
@@ -57,7 +59,7 @@ if __name__ == '__main__':
             if (fields[2] == LIC_IN):
 # Ansys's LM puts number of license in the sixth field.
                nlic = 1
-               if len(fields) == 7: nlic = int(fields[5].strip('('))
+               if len(fields) == 7 and fields[2] == 'ansyslmd': nlic = int(fields[5].strip('('))
 
                product = fields[1] + '.' + fields[3].strip('"')
 
@@ -89,13 +91,13 @@ if __name__ == '__main__':
                if usage[product] < 0:
                   print('WARNING: Negative usage detected. Setting usage for ' + product +  ' to zero.')
                   usage[product] = 0
-               if args.d: print('in: ' + fields[1] + '.' + fields[3].strip('"') + ': ' + str(usage[product]))
+               if args.d: print(line_num, 'in: ' + fields[1] + '.' + fields[3].strip('"') + ': ' + str(usage[product]))
 
 # Detect checking out a license.
             elif (fields[2] == LIC_OUT): 
 # Ansys's LM puts number of license in the sixth field.
                nlic = 1
-               if len(fields) == 7: nlic = int(fields[5].strip('('))
+               if len(fields) == 7 and fields[2] == 'ansyslmd': nlic = int(fields[5].strip('('))
 
                product = fields[1] + '.' + fields[3].strip('"')
 
